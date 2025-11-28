@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Analisi Titoli Azionari FTSE MIB</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding: 20px; 
+            background-color: #f4f4f9; 
+        }
+        h1 { color: #000000; text-align: center; }
+        .card { 
+            background: white; 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin-bottom: 30px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+            border-left: 5px solid #007bff;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        h2 { margin-top: 0; color: #007bff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; color: #333; }
+        tr:hover { background-color: #f1f1f1; }
+        
+        /* Stile per i numeri */
+        .numero { font-family: 'Consolas', 'Monaco', monospace; font-weight: bold; }
+        .positivo { color: green; }
+        .negativo { color: red; }
+    </style>
+</head>
+<body>
+
+    <h1>Analisi Titoli Azionari FTSE MIB</h1>
+
+    {% for nome_titolo, statistiche in dati_finanziari.items() %}
+    
+        <div class="card">
+            <h2>
+                <a href="/grafico1/{{ nome_titolo }}" style="text-decoration: none; color: #007bff;">
+                    {{ nome_titolo }} 
+                </a>
+            </h2>
+            
+            <table>
+                <tr>
+                    <th>Indicatore</th>
+                    <th>Valore</th>
+                </tr>
+                
+                {% for nome_indicatore, valore_numerico in statistiche.items() %}
+                <tr>
+                    <td>{{ nome_indicatore }}</td>
+                    <td>
+                        {# Controllo se il valore è un numero prima di fare calcoli #}
+                        {% if valore_numerico is number %}
+                            
+                            {# Logica: Se maggiore di 0 verde, altrimenti rosso #}
+                            {% if valore_numerico >= 0 %}
+                                <span class="numero positivo">
+                                    {# Moltiplico per 100 e uso '%.3f' per avere 3 decimali #}
+                                    +{{ "%.3f"|format(valore_numerico * 100) }}%
+                                </span>
+                            {% else %}
+                                <span class="numero negativo">
+                                    {{ "%.3f"|format(valore_numerico * 100) }}%
+                                </span>
+                            {% endif %}
+
+                        {% else %}
+                            {# Se non è un numero (es. testo), stampalo normale #}
+                            {{ valore_numerico }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </table>
+        </div>
+
+    {% endfor %}
+
+</body>
+</html>

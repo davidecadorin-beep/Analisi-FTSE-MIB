@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Grafico {{ ticker }}</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background-color: #f4f4f9; 
+            margin: 0;
+        }
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            display: inline-block; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            max-width: 95%;
+            width: 1000px; 
+        }
+        h1 { color: #000000; margin-bottom: 10px; }
+        h2 { 
+            color: #000000; 
+            border-bottom: 2px solid #eee; 
+            padding-bottom: 10px; 
+            margin-top: 40px; 
+            text-align: left;
+        }
+        img { 
+            max-width: 100%; 
+            height: auto; 
+            border: 1px solid #ddd; 
+            border-radius: 5px;
+            margin-bottom: 20px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn { 
+            display: inline-block; 
+            margin-top: 20px; 
+            padding: 12px 25px; 
+            background-color: #2c3e50; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 30px; 
+            font-weight: bold;
+            transition: background 0.3s;
+            cursor: pointer;
+            border: none; /* Per il bottone del form */
+            font-size: 1rem;
+        }
+        .btn:hover { background-color: #1a252f; }
+        
+        /* --- NUOVO CSS PER IL DATE PICKER --- */
+        .date-selector {
+            background-color: #eef2f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #dcdde1;
+        }
+        .date-selector label {
+            font-weight: 600;
+            color: #34495e;
+        }
+        .date-selector input[type="date"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+        }
+        /* ------------------------------------ */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <h1>Analisi Approfondita: {{ ticker }}</h1>
+
+        <div class="date-selector">
+            <form action="" method="POST" style="display: flex; align-items: center; gap: 15px;">
+                <input type="hidden" name="ticker" value="{{ ticker }}"> 
+                
+                <label for="start">Dal:</label>
+                <input type="date" id="start" name="start_date" value="{{ start_date }}" required>
+                
+                <label for="end">Al:</label>
+                <input type="date" id="end" name="end_date" value="{{ end_date }}" required>
+                
+                <button type="submit" class="btn" style="margin-top: 0;">Aggiorna Grafici</button>
+            </form>
+        </div>
+        <h2>1. Andamento Storico, Rendimenti e Volatilità</h2>
+        <img src="data:image/png;base64,{{ plot_temporale }}" alt="Grafici Temporali">
+        
+        <h2>2. Analisi della Distribuzione (Istogramma + KDE)</h2>
+        <img src="data:image/png;base64,{{ plot_distribuzione }}" alt="Grafico Distribuzione">
+        
+        <br>
+        <a href="/" class="btn">⬅ Torna alla Home</a>
+    </div>
+
+</body>
+</html>
