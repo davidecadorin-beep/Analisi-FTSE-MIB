@@ -1,0 +1,15 @@
+flask
+warnings
+warnings.filterwarnings("ignore", category=UserWarning)
+pandas as pd              
+numpy as np              
+matplotlib.pyplot as plt 
+seaborn as sns    
+yfinance as yf          
+scipy import stats        
+sklearn.decomposition import PCA
+sklearn.preprocessing import StandardScaler
+io 
+base64 
+from scipy import stats
+
