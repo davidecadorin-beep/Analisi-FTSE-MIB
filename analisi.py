@@ -117,7 +117,7 @@ def main(esegui_plot=True):
     min_rendimenti = log_rendimenti_titoli.min() # Minimo rendimento giornaliero
     max_rendimenti = log_rendimenti_titoli.max() # Massimo rendimento giornaliero
     # moda dei rendimenti
-    moda_rendimenti_originale = log_rendimenti_titoli.mode().iloc[0] # .iloc[0] per ottenere la prima riga (moda)
+    # moda_rendimenti_originale = log_rendimenti_titoli.mode().iloc[0] # .iloc[0] per ottenere la prima riga (moda)
     # Nuova Moda Statistica (raggruppata titolo per titolo)
     moda_statistica = log_rendimenti_titoli.apply(calculate_modal_return, axis=0)
 
@@ -129,7 +129,6 @@ def main(esegui_plot=True):
         'Varianza Annualizzata': varianza_rendimenti,
         'Min Rendimento Giornaliero': min_rendimenti,
         'Max Rendimento Giornaliero': max_rendimenti,
-        'Moda Rendimento Giornaliero': moda_rendimenti_originale,
         'Moda Statistica (Raggruppata)': moda_statistica,
     })
     
